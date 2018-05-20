@@ -1,0 +1,67 @@
+#include <iostream>
+using namespace std;
+
+struct Property
+{
+	virtual ~Property() {}
+	virtual float CountTax() = 0;
+};
+
+struct Appartment : Property
+{
+	int appartmentTax;
+	Appartment(int worth) : appartmentTax(worth)
+	{
+	}
+
+	float CountTax()
+	{
+		return appartmentTax * 0.001;
+	}
+};
+
+struct Car : Property
+{
+	int carTax;
+	Car(int worth) : carTax(worth)
+	{
+	}
+
+	float CountTax()
+	{
+		return carTax * 0.02;
+	}
+};
+
+struct CountryHouse : Property
+{
+	int cHouseTax;
+	CountryHouse(int worth) : cHouseTax(worth)
+	{
+	}
+
+	float CountTax()
+	{
+		return cHouseTax * 0.05;
+	}
+};
+
+int main()
+{
+	Property *allProperty[7];
+	allProperty[0] = new Appartment(4000000);
+	allProperty[1] = new Appartment(7500000);
+	allProperty[2] = new Appartment(9000000);
+	allProperty[3] = new Car(1300000);
+	allProperty[4] = new Car(2250000);
+	allProperty[5] = new CountryHouse(12000000);
+	allProperty[6] = new CountryHouse(21150000);
+
+	for (int i = 0; i < 7; i++)
+	{
+		cout << "Tax for the " << i + 1 << " property = " << fixed << allProperty[i]->CountTax() << endl;
+		delete allProperty[i];
+	}
+	system("pause");
+	return 0;
+}
